@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/kzdevops/corego/models"
+	"github.com/kzdevops/corego/websvc/models"
 )
 
 func main() {
