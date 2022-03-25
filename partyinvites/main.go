@@ -16,11 +16,11 @@ var templates = make(map[string]*template.Template, 3)
 
 func loadTemplates() {
 	templateNames := [5]string{"welcome", "form", "thanks", "sorry", "list"}
-	for index, name := range templateNames {
+	for _, name := range templateNames {
 		t, err := template.ParseFiles("layout.html", name+".html")
 		if err == nil {
 			templates[name] = t
-			fmt.Println("Loaded template", index, name)
+			//fmt.Println("Loaded template", index, name)
 		} else {
 			panic(err)
 		}
@@ -53,11 +53,27 @@ func formHandler(writer http.ResponseWriter, request *http.Request) {
 			Phone:      request.Form["phone"][0],
 			WillAttend: request.Form["willattend"][0] == "true",
 		}
-		responses = append(responses, &responseData)
-		if responseData.WillAttend {
-			templates["thanks"].Execute(writer, responseData.Name)
+		errors := []string{}
+		if responseData.Name == "" {
+			errors = append(errors, "Please enter your name")
+		}
+		if responseData.Email == "" {
+			errors = append(errors, "Please enter your email address")
+		}
+		if responseData.Phone == "" {
+			errors = append(errors, "Please enter your phone number")
+		}
+		if len(errors) > 0 {
+			templates["form"].Execute(writer, formData{
+				Rsvp: &responseData, Errors: errors,
+			})
 		} else {
-			templates["sorry"].Execute(writer, responseData.Name)
+			responses = append(responses, &responseData)
+			if responseData.WillAttend {
+				templates["thanks"].Execute(writer, responseData.Name)
+			} else {
+				templates["sorry"].Execute(writer, responseData.Name)
+			}
 		}
 	}
 }
