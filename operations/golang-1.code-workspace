@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "../methodsandinterfaces"
+		},
+		{
+			"path": "../aliases"
 		}
 	],
 	"settings": {}
