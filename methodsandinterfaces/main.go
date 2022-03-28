@@ -7,6 +7,11 @@ type Product struct {
 	price          float64
 }
 
+// define Method for printing
+func printDetails(product *Product) {
+	fmt.Println("Name:", product.name, "Category:", product.category, "Price:", product.price)
+}
+
 func main() {
 	products := []*Product{
 		{"Kayak", "WaterSports", 275.00},
@@ -14,6 +19,6 @@ func main() {
 		{"Soccer Ball", "Soccer", 12.99},
 	}
 	for _, p := range products {
-		fmt.Println("Name:", p.name, "Category:", p.category, "Price:", p.price)
+		printDetails(p)
 	}
 }
