@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../basicfeatures"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../structs"
+		},
+		{
+			"path": "../methodsandinterfaces"
+		}
+	],
+	"settings": {}
+}
