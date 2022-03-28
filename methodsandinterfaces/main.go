@@ -7,6 +7,10 @@ type Product struct {
 	price          float64
 }
 
+type Supplier struct {
+	name, city string
+}
+
 // newProduct definition
 func newProduct(name, category string, price float64) *Product {
 	return &Product{name, category, price}
@@ -16,6 +20,10 @@ func newProduct(name, category string, price float64) *Product {
 // (product *Product) receiver
 func (product *Product) printDetails() {
 	fmt.Println("Name:", product.name, ", Category:", product.category, ", Price:", product.calcTax(0.5, 10))
+}
+
+func (supplier *Supplier) printDetails() {
+	fmt.Println("Name:", supplier.name, ", City:", supplier.city)
 }
 
 // calcTax method
@@ -36,4 +44,14 @@ func main() {
 	for _, p := range products {
 		p.printDetails() //Invoke method
 	}
+
+	suppliers := []*Supplier{
+		{"KR", "Charlotte"},
+		{"RR", "SanAntonio"},
+		{"RVG", "Plano"},
+	}
+	for _, s := range suppliers {
+		s.printDetails() //Invoke method
+	}
+
 }
