@@ -13,11 +13,13 @@ func newProduct(name, category string, price float64) *Product {
 }
 
 // printDetails method
+// (product *Product) receiver
 func (product *Product) printDetails() {
 	fmt.Println("Name:", product.name, ", Category:", product.category, ", Price:", product.calcTax(0.5, 10))
 }
 
 // calcTax method
+// (product *Product) receiver; (rate, threshold float64) Parameters of method with return Type
 func (product *Product) calcTax(rate, threshold float64) float64 {
 	if product.price > threshold {
 		return product.price + (product.price * rate)
