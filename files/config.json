@@ -1,0 +1,9 @@
+{
+    "Username": "krachakonda",
+    "AdditionalProducts": [
+        {"name": "Hat", "category": "Skiing", "price": 10},
+        {"name": "Shoe", "category": "Skiing", "price": 110.11},
+        {"name": "Gloves", "category": "Skiing", "price": 20.21}
+
+    ]
+}
