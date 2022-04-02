@@ -8,13 +8,13 @@ import (
 func loadConf() (err error) {
 	data, err := os.ReadFile("config.json")
 	if err == nil {
-		fmt.Printf(string(data))
+		fmt.Println(string(data))
 	}
 	return
 
 }
 
-func init() {
+func main() {
 	err := loadConf()
 	if err != nil {
 		fmt.Println("Err loading config", err.Error())
