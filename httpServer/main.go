@@ -10,6 +10,11 @@ type stringHandler struct {
 }
 
 func (sh stringHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/favicon.ico" {
+		MyPrintlin("Request for icon detected - return 404")
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
 	MyPrintlin("method: %v", r.Method)
 	MyPrintlin("url: %v", r.URL)
 	MyPrintlin("host: %v", r.Host)
