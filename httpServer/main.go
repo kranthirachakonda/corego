@@ -10,25 +10,23 @@ type stringHandler struct {
 }
 
 func (sh stringHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path == "/favicon.ico" {
-		MyPrintlin("Request for icon detected - return 404")
-		w.WriteHeader(http.StatusNotFound)
-		return
-	}
-	MyPrintlin("method: %v", r.Method)
-	MyPrintlin("url: %v", r.URL)
-	MyPrintlin("host: %v", r.Host)
-	MyPrintlin("proto: %v", r.Proto)
-	for name, val := range r.Header {
-		MyPrintlin("header: %v, value: %v", name, val)
-	}
-	MyPrintlin("----------")
+	MyPrintlin("processing req: %v", r.URL.Path)
 	io.WriteString(w, sh.msg)
 }
 
 func main() {
-	err := http.ListenAndServe(":5000", stringHandler{msg: "simple golang httpServer"})
+	http.Handle("/msg", stringHandler{"Default page"})
+	http.Handle("/favicon.ico", http.NotFoundHandler())
+	http.Handle("/", http.RedirectHandler("/msg", http.StatusTemporaryRedirect))
+	go func() {
+
+		err := http.ListenAndServeTLS(":5001", "localhost-pub.cer", "localhost.key", nil)
+		if err != nil {
+			MyPrintlin("TLS Error Occured: %v", err.Error())
+		}
+	}()
+	err := http.ListenAndServe(":5000", nil)
 	if err != nil {
-		MyPrintlin("Error Occured: %v", err.Error())
+		MyPrintlin("Error: %v", err.Error())
 	}
 }
