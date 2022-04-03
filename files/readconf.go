@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 func loadConf() (err error) {
@@ -19,4 +20,13 @@ func main() {
 	if err != nil {
 		fmt.Println("Err loading config", err.Error())
 	}
+
+	homePath, err := os.UserHomeDir()
+	if err == nil {
+		homePath = filepath.Join(homePath, "workspace", "code", "tempfile.json")
+	}
+	fmt.Println("Path:", homePath)
+	fmt.Println("dir:", filepath.Dir(homePath))
+	fmt.Println(filepath.Ext(homePath))
+
 }
