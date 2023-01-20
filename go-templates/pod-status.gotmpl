@@ -1,0 +1,8 @@
+NAMESPACE {{"\t"}} POD_NAME {{"\t"}} NODE_NAME {{"\t"}} NODE_IP {{"\n"}}
+ {{- range  $item := .items -}}
+ 	{{- range .status.conditions -}}
+ 		{{- if (or (and (eq .type "PodScheduled") (eq .status "False"))  (and (eq .type "Initialized") (eq .status "False"))) -}} 
+ 			{{ $item.metadata.namespace }} {{"\t"}} {{ $item.metadata.name -}} {{"\t"}} {{- $item.spec.nodeName -}} {{"\t"}} {{- $item.status.hostIP -}}{{"\n"}} 
+ 		{{- end -}}
+ 	{{- end -}}
+ {{- end -}}
